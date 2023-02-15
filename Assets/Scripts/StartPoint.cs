@@ -5,11 +5,11 @@ using UnityEngine;
 public class StartPoint : MonoBehaviour
 {
     public string startPoint;
-    private MovingObject1 thePlayer;
+    private PlayerManager thePlayer;
     private CameraManager theCamera;
     void Start()
     {
-        thePlayer = FindObjectOfType<MovingObject1>();
+        thePlayer = FindObjectOfType<PlayerManager>();
         theCamera = FindObjectOfType<CameraManager>();
 
         if(startPoint == thePlayer.currentMapName)

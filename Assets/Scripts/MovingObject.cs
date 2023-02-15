@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class MovingObject : MonoBehaviour
 {
-    public static MovingObject instance;
+    //public static MovingObject instance;
 
     public string characterName;
+
     public float speed;
     public int walkCount;
-    public int currentWalkCount;
+    protected int currentWalkCount;
+
+    protected bool npcCanMove = true;
 
     private bool notCoroutine = false;
     protected Vector3 vector;
@@ -24,7 +27,7 @@ public class MovingObject : MonoBehaviour
     //private float applyRunSpeed;
     //private bool applyRunFlag = false;
     //private bool canMove = true;
-    public void Move(string _dir, int _frequency = 5)
+    public void Move(string _dir, int _frequency)
     {
         queue.Enqueue(_dir);
         if (!notCoroutine)
@@ -35,6 +38,7 @@ public class MovingObject : MonoBehaviour
     }
     IEnumerator MoveCoroutine(string _dir, int _frequency)
     {
+        npcCanMove = false;
         while(queue.Count != 0)
         {
             string direction = queue.Dequeue();
@@ -69,6 +73,7 @@ public class MovingObject : MonoBehaviour
                 animator.SetBool("Walking", false);
         }
         animator.SetBool("Walking", false);
+        npcCanMove = true;
         notCoroutine = false;
     }
     protected bool CheckCollsion()

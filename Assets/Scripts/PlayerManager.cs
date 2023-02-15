@@ -21,6 +21,7 @@ public class PlayerManager : MovingObject
     private bool canMove = true;
 
     public bool notMove = false;
+
     void Awake()
     {
         if(instance = null)

@@ -11,7 +11,7 @@ public class TestFadeMusic : MonoBehaviour
         bgm = FindObjectOfType<BGMManager>();
     }
 
-    private void OnTriggerEnter2D(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         StartCoroutine(Fade());
     }

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class MovingObject1 : MonoBehaviour
 {
-    public string currentMapName;
     public static MovingObject1 instance;
+
+    public string currentMapName; // transferMap 스크립트에 있는 transferMapName 변수의 값을 저장
 
     public float speed;
     public int walkCount;

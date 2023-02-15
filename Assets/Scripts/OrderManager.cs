@@ -49,7 +49,7 @@ public class OrderManager : MonoBehaviour
         {
             if (_name == characters[i].characterName)
             {
-                characters[i].Move(_dir);
+                //characters[i].Move(_dir);
             }
         }
     }

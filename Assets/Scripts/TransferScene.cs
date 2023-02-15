@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 public class TransferScene : MonoBehaviour
 {
     public string transferMapName; //이동할 맵의 이름
-    private MovingObject1 thePlayer;
+    private PlayerManager thePlayer;
     void Start()
     {
-        thePlayer = FindObjectOfType<MovingObject1>();
+        thePlayer = FindObjectOfType<PlayerManager>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
