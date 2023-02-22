@@ -10,6 +10,7 @@ public class Event1 : MonoBehaviour
     private DialogueManager theDM;
     private OrderManager theOrder;
     private PlayerManager thePlayer;
+    private FadeManager theFade;
 
     private bool flag;
 
@@ -18,6 +19,7 @@ public class Event1 : MonoBehaviour
         theDM = FindObjectOfType<DialogueManager>();
         theOrder = FindObjectOfType<OrderManager>();
         thePlayer = FindObjectOfType<PlayerManager>();
+        theFade = FindObjectOfType<FadeManager>();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -41,6 +43,7 @@ public class Event1 : MonoBehaviour
         theOrder.Move("Player", "UP");
         yield return new WaitUntil(() => thePlayer.queue.Count == 0);
 
+        theFade.Flash();
         theDM.ShowDialogue(dialogue_2);
         yield return new WaitUntil(() => !theDM.talking);
 

@@ -9,20 +9,35 @@ public class TransferMap : MonoBehaviour
     public Transform target;
     public BoxCollider2D TargetBound;
     private CameraManager theCamera;
+    private FadeManager theFade;
+    private OrderManager theOrder;
     void Start()
     {
         thePlayer = FindObjectOfType<PlayerManager>();
         theCamera = FindObjectOfType<CameraManager>();
+        theFade = FindObjectOfType<FadeManager>();
+        theOrder = FindObjectOfType<OrderManager>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Player")
         {
-            thePlayer.currentMapName = transferMapName;
-            theCamera.SetBound(TargetBound);
-            theCamera.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, theCamera.transform.position.z);
-            //맵이동 방식(씬전환이랑 섞어쓰는건 추천하지 않음)
-            thePlayer.transform.position = target.transform.position;
+            StartCoroutine(TransferCoroutine());
         }
+    }
+
+    IEnumerator TransferCoroutine()
+    {
+        theOrder.NotMove();
+        theFade.FadeOut();
+        yield return new WaitForSeconds(1f);
+        thePlayer.currentMapName = transferMapName;
+        theCamera.SetBound(TargetBound);
+        theCamera.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, theCamera.transform.position.z);
+        //맵이동 방식(씬전환이랑 섞어쓰는건 추천하지 않음)
+        thePlayer.transform.position = target.transform.position;
+        theFade.FadeIn();
+        yield return new WaitForSeconds(0.5f);
+        theOrder.Move();
     }
 }
