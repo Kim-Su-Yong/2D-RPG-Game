@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class TestChoice : MonoBehaviour
 {
-    [SerializeField]
-    public Choice choice;
     private OrderManager theOrder;
-    private ChoiceManager theChoice;
+    private NumberSystem theNumber;
     public bool flag;
+    public int correctNumber;
 
     // public Dialogue dialogue1; // 분기 만들때 쓰면 좋다
     // public Dialogue dialogue2; // 두 번째 분기 등등...
@@ -16,7 +15,7 @@ public class TestChoice : MonoBehaviour
     void Start()
     {
         theOrder = FindObjectOfType<OrderManager>();
-        theChoice = FindObjectOfType<ChoiceManager>();
+        theNumber = FindObjectOfType<NumberSystem>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -31,9 +30,8 @@ public class TestChoice : MonoBehaviour
     {
         flag = true;
         theOrder.NotMove();
-        theChoice.ShowChoice(choice);
-        yield return new WaitUntil(() => !theChoice.choiceIng);
+        theNumber.ShowNumber(correctNumber);
+        yield return new WaitUntil(() => !theNumber.activated);
         theOrder.Move();
-        Debug.Log(theChoice.GetResult());
     }
 }
