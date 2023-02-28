@@ -40,6 +40,7 @@ public class DialogueManager : MonoBehaviour
 
     public bool talking = false;
     private bool keyActivated = false;
+    private bool onlyText = false;
 
     void Start()
     {
@@ -51,9 +52,22 @@ public class DialogueManager : MonoBehaviour
         theAudio = FindObjectOfType<AudioManager>();
     }
 
+    public void ShowText(string[] _sentences)
+    {
+        talking = true;
+        onlyText = true;
+
+        for (int i = 0; i < _sentences.Length; i++)
+        {
+            listSentences.Add(_sentences[i]);
+        }
+        StartCoroutine(StartTextCoroutine());
+    }
+
     public void ShowDialogue(Dialogue dialogue)
     {
         talking = true;
+        onlyText = false;
 
         for (int i = 0; i < dialogue.sentences.Length; i++)
         {
@@ -65,6 +79,20 @@ public class DialogueManager : MonoBehaviour
         animSprite.SetBool("Appear", true);
         animDialogueWindow.SetBool("Appear", true);
         StartCoroutine(StartDialogueCoroutine());
+    }
+
+    IEnumerator StartTextCoroutine()
+    {
+        keyActivated = true;
+        for (int i = 0; i < listSentences[count].Length; i++)
+        {
+            text.text += listSentences[count][i]; // 1글자씩 출력하게 만듬
+            if (i % 7 == 1)
+            {
+                theAudio.Play(typeSound);
+            }
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 
     IEnumerator StartDialogueCoroutine()
@@ -145,7 +173,10 @@ public class DialogueManager : MonoBehaviour
                 else
                 {
                     StopAllCoroutines();
-                    StartCoroutine(StartDialogueCoroutine());
+                    if(onlyText == true)
+                        StartCoroutine(StartTextCoroutine());
+                    else
+                        StartCoroutine(StartDialogueCoroutine());
                 }
             }
         }

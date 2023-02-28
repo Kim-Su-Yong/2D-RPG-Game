@@ -5,9 +5,11 @@ using UnityEngine;
 public class TestChoice : MonoBehaviour
 {
     private OrderManager theOrder;
-    private NumberSystem theNumber;
+    //private NumberSystem theNumber;
+    private DialogueManager theDM;
+
     public bool flag;
-    public int correctNumber;
+    public string[] texts;
 
     // public Dialogue dialogue1; // 분기 만들때 쓰면 좋다
     // public Dialogue dialogue2; // 두 번째 분기 등등...
@@ -15,7 +17,8 @@ public class TestChoice : MonoBehaviour
     void Start()
     {
         theOrder = FindObjectOfType<OrderManager>();
-        theNumber = FindObjectOfType<NumberSystem>();
+        //theNumber = FindObjectOfType<NumberSystem>();
+        theDM = FindObjectOfType<DialogueManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -30,8 +33,11 @@ public class TestChoice : MonoBehaviour
     {
         flag = true;
         theOrder.NotMove();
-        theNumber.ShowNumber(correctNumber);
-        yield return new WaitUntil(() => !theNumber.activated);
+        theDM.ShowText(texts);
+        //theNumber.ShowNumber(correctNumber);
+        //yield return new WaitUntil(() => !theNumber.activated);
+
+        yield return new WaitUntil(() => !theDM.talking);
         theOrder.Move();
     }
 }
