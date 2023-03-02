@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Inventory : MonoBehaviour
+public class Inventory1 : MonoBehaviour
 {
-    public static Inventory instance;
-    private DatabaseManager theDatabase;
+    //public static Inventory1 instance;
+    //private DatabaseManager theDatabase;
     private AudioManager theAudio;
-    //private OrderManager theOrder;
+    private OrderManager theOrder;
     public string key_sound;
     public string enter_sound;
     public string cancel_sound;
@@ -27,7 +27,6 @@ public class Inventory : MonoBehaviour
 
     public GameObject go; // 인벤토리 활성화 비활성화
     public GameObject[] selectedTabImages;
-    public GameObject prefab_floating_Text;
 
     private int selectedItem; // 선택된 아이템
     private int selectedTab; // 선택된 탭
@@ -42,72 +41,53 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
-        instance = this;
-        theDatabase = FindObjectOfType<DatabaseManager>();
         theAudio = FindObjectOfType<AudioManager>();
-        //theOrder = FindObjectOfType<OrderManager>();
+        theOrder = FindObjectOfType<OrderManager>();
         inventoryItemList = new List<Item>();
         inventoryTabList = new List<Item>();
         slots = tf.GetComponentsInChildren<InventorySlot>();
+        inventoryItemList.Add(new Item(10001, "빨간 포션", "체력을 50 회복시켜주는 기적의 물약", Item.ItemType.Use));
+        inventoryItemList.Add(new Item(10002, "파란 포션", "마나를 15 회복시켜주는 기적의 물약", Item.ItemType.Use));
+        inventoryItemList.Add(new Item(10003, "농축 빨간 포션", "체력을 350 회복시켜주는 기적의 농축 물약", Item.ItemType.Use));
+        inventoryItemList.Add(new Item(10004, "농축 파란 포션", "마나를 80 회복시켜주는 기적의 농축 물약", Item.ItemType.Use));
+        inventoryItemList.Add(new Item(11001, "랜덤 상자", "랜덤으로 포션이 나온다. 낮은 확률로 꽝", Item.ItemType.Use));
+        inventoryItemList.Add(new Item(20001, "짧은 검", "기본적인 용사의 검", Item.ItemType.Equip));
+        inventoryItemList.Add(new Item(21001, "사파이어 반지", "1분에 미니 1을 회복시켜주는 마법 반지", Item.ItemType.Equip));
+        inventoryItemList.Add(new Item(30001, "고대 유물의 조각1", "반으로 쪼개진 고대 유물의 파편", Item.ItemType.Quest));
+        inventoryItemList.Add(new Item(30002, "고대 유물의 조각2", "반으로 쪼개진 고대 유물의 파편", Item.ItemType.Quest));
+        inventoryItemList.Add(new Item(30003, "고대 유물", "고대 유적에 잠들어있던 고대의 유물", Item.ItemType.Quest));
     }
-    public void GetAnItem(int _itemID, int _count = 1)
-    {
-        for(int i = 0; i< theDatabase.itemList.Count; i++) //데이터베이스 아이템 검색
-        {
-            if(_itemID == theDatabase.itemList[i].itemID) //데이터베이스에 아이템 발견
-            {
-                var clone = Instantiate(prefab_floating_Text, PlayerManager.instance.transform.position, Quaternion.Euler(Vector3.zero));
-                clone.GetComponent<FloatingText>().text.text = theDatabase.itemList[i].itemName + " " + _count + "개 획득 +";
-                clone.transform.SetParent(this.transform);
 
-                for(int j = 0; j < inventoryItemList.Count; j++) //소지품에 같은 아이템이 있는지 검색
-                {
-                    if(inventoryItemList[i].itemID == _itemID) //소지품에 같은 아이템이 있다 -> 갯수만 증감시켜줌
-                    {
-                        if (inventoryItemList[i].itemType == Item.ItemType.Use)
-                        {
-                            inventoryItemList[j].itemCount += _count;
-                        }
-                        else
-                        {
-                            inventoryItemList.Add(theDatabase.itemList[i]);
-                        }
-                        return;
-                    }
-                }
-                inventoryItemList.Add(theDatabase.itemList[i]); //소지품에 해당 아이템 추가
-                inventoryItemList[inventoryItemList.Count - 1].itemCount = _count;
-                return;
-            }
-        }
-        Debug.LogError("데이터베이스에 해당 ID값을 가진 아이템이 존재하지 않습니다."); //데이터베이스에 itemID없음
-    }
-    public void ShowTab()
+    public void ShowTab() // 탭 활성화
     {
         RemoveSlot();
         SelectedTab();
-    } //탭 활성화
-    public void RemoveSlot()
+    }
+    public void RemoveSlot() // 인벤토리 슬롯 초기화
     {
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i].RemoveItem();
             slots[i].gameObject.SetActive(false);
         }
-    } //인벤토리 슬롯 초기화
-    public void SelectedTab()
+    }
+
+    public void SelectedTab() // 선택된 탭 말고 나머지는 알파값 0 로 조정함
     {
         StopAllCoroutines();
         Color color = selectedTabImages[selectedTab].GetComponent<Image>().color;
         color.a = 0f;
+
         for (int i = 0; i < selectedTabImages.Length; i++)
         {
             selectedTabImages[i].GetComponent<Image>().color = color;
         }
+
         Description_Text.text = tabDescription[selectedTab];
         StartCoroutine(SelectedTabEffectCoroutine());
-    } //선택된 탭을 제외하고 다른 모든 탭의 컬러 알아값 0으로 조정
-    IEnumerator SelectedTabEffectCoroutine()
+    }
+
+    IEnumerator SelectedTabEffectCoroutine() // 선택된 탭 반짝임 효과
     {
         while (tabActivated)
         {
@@ -124,16 +104,18 @@ public class Inventory : MonoBehaviour
                 selectedTabImages[selectedTab].GetComponent<Image>().color = color;
                 yield return waitTime;
             }
+
             yield return new WaitForSeconds(0.3f);
         }
-    } //선택된 탭 반짝임 효과
-    public void ShowItem()
+    }
+
+    public void ShowItem() // 아이템 활성화(조건에 맞는 아이템 넣고 인벤토리 슬롯에 출력)
     {
         inventoryTabList.Clear();
         RemoveSlot();
         selectedItem = 0;
 
-        switch (selectedTab)
+        switch(selectedTab) // 탭에 따른 아이템 분류를 인벤토리 탭 리스트에 추가함
         {
             case 0:
                 for (int i = 0; i < inventoryItemList.Count; i++)
@@ -163,16 +145,18 @@ public class Inventory : MonoBehaviour
                         inventoryTabList.Add(inventoryItemList[i]);
                 }
                 break;
-        } //탭에 따른 아이템 분류, 그것을 인벤토리 탭 리스트에 추가
+        }
 
-        for (int i = 0; i < inventoryTabList.Count; i++)
+        for (int i =0; i<inventoryTabList.Count; i++) // 인벤토리 탭 리스트의 내용을 인벤토리 슬롯에 추가함
         {
             slots[i].gameObject.SetActive(true);
             slots[i].Additem(inventoryTabList[i]);
-        } //인벤토리 탭 리스트의 내용을, 인벤토리 슬롯에 추가
-        SelectedItem();
-    } //아이템 활성화 (inventoryTabList에 조정에 맞는 아이템들만 넣어주고 인벤토리 슬롯에 출력)
-    public void SelectedItem()
+        }
+
+        SelectedTab();
+    }
+
+    public void SelectedItem() // 선택된 아이템을 제외하고 다른 모든 아이템의 알파값 0 로 조정
     {
         StopAllCoroutines();
         if (inventoryTabList.Count > 0)
@@ -180,16 +164,17 @@ public class Inventory : MonoBehaviour
             Color color = slots[0].selected_item.GetComponent<Image>().color;
             color.a = 0f;
             for (int i = 0; i < inventoryTabList.Count; i++)
-            {
                 slots[i].selected_item.GetComponent<Image>().color = color;
-            }
             Description_Text.text = inventoryTabList[selectedItem].itemDescription;
             StartCoroutine(SelectedItemEffectCoroutine());
         }
         else
+        {
             Description_Text.text = "해당 타입의 아이템을 소유하고 있지 않습니다.";
-    } //선택된 아이템을 제외하고 다른 모든 탭의 컬러의 알파값을 0으로 조정
-    IEnumerator SelectedItemEffectCoroutine()
+        }
+    }
+
+    IEnumerator SelectedItemEffectCoroutine() // 선택된 아이템 반짝임 효과
     {
         while (itemActivated)
         {
@@ -206,20 +191,23 @@ public class Inventory : MonoBehaviour
                 slots[selectedItem].selected_item.GetComponent<Image>().color = color;
                 yield return waitTime;
             }
+
             yield return new WaitForSeconds(0.3f);
         }
-    } //선택된 아이템 반짝임 효과
+    }
+
     void Update()
     {
-        if (!stopKeyInput)
+        if(!stopKeyInput)
         {
-            if (Input.GetKeyDown(KeyCode.I))
+            if(Input.GetKeyDown(KeyCode.I))
             {
                 activated = !activated;
+
                 if (activated)
                 {
                     theAudio.Play(open_sound);
-                    //theOrder.NotMove();
+                    theOrder.NotMove();
                     go.SetActive(true);
                     selectedTab = 0;
                     tabActivated = true;
@@ -233,14 +221,15 @@ public class Inventory : MonoBehaviour
                     go.SetActive(false);
                     tabActivated = false;
                     itemActivated = false;
-                    //theOrder.Move();
+                    theOrder.Move();
                 }
             }
-            if (activated)
+
+            if(activated)
             {
-                if (tabActivated)
+                if(tabActivated)
                 {
-                    if (Input.GetKeyDown(KeyCode.RightArrow))
+                    if(Input.GetKeyDown(KeyCode.RightArrow))
                     {
                         if (selectedTab < selectedTabImages.Length - 1)
                             selectedTab++;
@@ -269,64 +258,76 @@ public class Inventory : MonoBehaviour
                         preventExec = true;
                         ShowItem();
                     }
-                } //탭 활성화시 키입력 처리
+                } // 탭 활성화 시 키 입력
 
-                else if(itemActivated)
+                else if(itemActivated) // 아이템 활성화 시 키 입력
                 {
-                    if(Input.GetKeyDown(KeyCode.DownArrow))
+                    if (inventoryTabList.Count > 0)
                     {
-                        if (selectedItem < inventoryTabList.Count - 2)
-                            selectedItem += 2;
-                        else
-                            selectedItem %= 2;
-                        theAudio.Play(key_sound);
-                        SelectedItem();
-                    }
-                    else if (Input.GetKeyDown(KeyCode.UpArrow))
-                    {
-                        if (selectedItem > 1)
-                            selectedItem -= 2;
-                        else
-                            selectedItem = inventoryTabList.Count - 1 - selectedItem;
-                        theAudio.Play(key_sound);
-                        SelectedItem();
-                    }
-                    else if (Input.GetKeyDown(KeyCode.RightArrow))
-                    {
-                        if (selectedItem < inventoryTabList.Count - 1)
-                            selectedItem++;
-                        else
-                            selectedItem = 0;
-                        theAudio.Play(key_sound);
-                        SelectedItem();
-                    }
-                    else if (Input.GetKeyDown(KeyCode.LeftArrow))
-                    {
-                        if (selectedItem > 0)
-                            selectedItem--;
-                        else
-                            selectedItem = inventoryTabList.Count - 1;
-                        theAudio.Play(key_sound);
-                        SelectedItem();
-                    }
-                    else if (Input.GetKeyDown(KeyCode.Z) && preventExec)
-                    {
-                        if(selectedTab == 0) //소모품
+                        if (Input.GetKeyDown(KeyCode.DownArrow))
                         {
-                            theAudio.Play(enter_sound);
-                            stopKeyInput = true;
-                            //물약을 마실 거냐? 같은 선택지 호출
+                            if (selectedItem < inventoryTabList.Count - 2)
+                            {
+                                selectedItem += 2;
+                            }
+                            else 
+                                selectedItem %= 2;
+
+                            theAudio.Play(key_sound);
+                            SelectedItem();
                         }
-                        else if(selectedTab == 1)
+                        else if (Input.GetKeyDown(KeyCode.UpArrow))
                         {
-                            //장비 장착
+                            if (selectedItem > 1)
+                            {
+                                selectedItem -= 2;
+                            }
+                            else 
+                                selectedItem = inventoryTabList.Count - 1 - selectedItem;
+
+                            theAudio.Play(key_sound);
+                            SelectedItem();
                         }
-                        else //비프음 출력
+                        else if (Input.GetKeyDown(KeyCode.LeftArrow))
                         {
-                            theAudio.Play(beep_sound);
+                            if (selectedItem > 0)
+                                selectedItem--;
+                            else 
+                                selectedItem = inventoryTabList.Count - 1;
+
+                            theAudio.Play(key_sound);
+                            SelectedItem();
+                        }
+                        else if (Input.GetKeyDown(KeyCode.RightArrow))
+                        {
+                            if (selectedItem < inventoryTabList.Count - 1)
+                                selectedItem++;
+                            else 
+                                selectedItem = 0;
+
+                            theAudio.Play(key_sound);
+                            SelectedItem();
+                        }
+                        else if (Input.GetKeyDown(KeyCode.Z) && !preventExec)
+                        {
+                            if (selectedTab == 0) // 소모품
+                            {
+                                theAudio.Play(enter_sound);
+                                stopKeyInput = true;
+                                // 선택지를 호출함
+                            }
+                            else if (selectedTab == 1)
+                            {
+                                // 장비 장착
+                            }
+                            else
+                            {
+                                theAudio.Play(beep_sound);
+                            }
                         }
                     }
-                    else if (Input.GetKeyDown(KeyCode.X))
+
+                    if (Input.GetKeyDown(KeyCode.X))
                     {
                         theAudio.Play(cancel_sound);
                         StopAllCoroutines();
@@ -334,8 +335,9 @@ public class Inventory : MonoBehaviour
                         tabActivated = true;
                         ShowTab();
                     }
-                } //아이템 활성화시 키입력 처리
-                if (Input.GetKeyUp(KeyCode.Z)) //중복 실행 방지
+                }
+
+                if (Input.GetKeyUp(KeyCode.Z)) // 중복 실행 방지
                     preventExec = false;
             }
         }
