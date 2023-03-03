@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour
     public static Inventory instance;
     private DatabaseManager theDatabase;
     private AudioManager theAudio;
-    //private OrderManager theOrder;
+    private OrderManager theOrder;
     public string key_sound;
     public string enter_sound;
     public string cancel_sound;
@@ -45,7 +45,7 @@ public class Inventory : MonoBehaviour
         instance = this;
         theDatabase = FindObjectOfType<DatabaseManager>();
         theAudio = FindObjectOfType<AudioManager>();
-        //theOrder = FindObjectOfType<OrderManager>();
+        theOrder = FindObjectOfType<OrderManager>();
         inventoryItemList = new List<Item>();
         inventoryTabList = new List<Item>();
         slots = tf.GetComponentsInChildren<InventorySlot>();
@@ -62,9 +62,9 @@ public class Inventory : MonoBehaviour
 
                 for(int j = 0; j < inventoryItemList.Count; j++) //소지품에 같은 아이템이 있는지 검색
                 {
-                    if(inventoryItemList[i].itemID == _itemID) //소지품에 같은 아이템이 있다 -> 갯수만 증감시켜줌
+                    if(inventoryItemList[j].itemID == _itemID) //소지품에 같은 아이템이 있다 -> 갯수만 증감시켜줌
                     {
-                        if (inventoryItemList[i].itemType == Item.ItemType.Use)
+                        if (inventoryItemList[j].itemType == Item.ItemType.Use)
                         {
                             inventoryItemList[j].itemCount += _count;
                         }

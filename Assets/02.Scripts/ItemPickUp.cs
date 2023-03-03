@@ -8,12 +8,12 @@ public class ItemPickUp : MonoBehaviour
     public int _count;
     public string pickUpSound;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if(Input.GetKeyDown(KeyCode.Z))
+        if(Input.GetKey(KeyCode.Z))
         {
             AudioManager.instance.Play(pickUpSound);
-            Inventory.instance.GetAnItem(itemID, _count);
+            Inventory1.instance.GetAnItem(itemID, _count);
             Destroy(this.gameObject);
         }
     }
