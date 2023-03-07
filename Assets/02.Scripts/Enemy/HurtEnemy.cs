@@ -6,6 +6,7 @@ public class HurtEnemy : MonoBehaviour
 {
     public GameObject prefabs_Floating_Text;
     public GameObject parent;
+    public GameObject effect;
 
     public string atkSound;
 
@@ -22,6 +23,9 @@ public class HurtEnemy : MonoBehaviour
             AudioManager.instance.Play(atkSound);
 
             Vector3 vector = col.transform.position;
+
+            Instantiate(effect, vector, Quaternion.Euler(Vector3.zero));
+
             vector.y += 60;
 
             GameObject clone = Instantiate(prefabs_Floating_Text, vector, Quaternion.Euler(Vector3.zero));
