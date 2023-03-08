@@ -10,17 +10,21 @@ public class Equipment : MonoBehaviour
     private PlayerStat thePlayerStat;
     private Inventory1 theInven;
     private OkOrCancel theOOC;
-    private Equipment theEquip;
 
     public string key_sound;
     public string enter_sound;
     public string open_sound;
     public string close_sound;
     public string takeoff_sound;
+    public string equip_sound;
 
     private const int WEAPON = 0, SHIELD = 1, AMULET = 2, LEFT_RING = 3, RIGHT_RING = 4,
                       HELMET = 5, ARMOR = 6, LEFT_GLOVE = 7, RIGHT_GLOVE = 8, BELT = 9,
                       LEFT_BOOTS = 10, RIGHT_BOOTS = 11; // 각종 장비들
+
+    private const int ATK = 0, DEF = 1, HPR = 6, MPR = 7;
+
+    private int added_atk, added_def, added_hpr, added_mpr;
 
     public GameObject go;
     public GameObject go_OOC;
@@ -41,7 +45,40 @@ public class Equipment : MonoBehaviour
         theAudio = FindObjectOfType<AudioManager>();
         thePlayerStat = FindObjectOfType<PlayerStat>();
         theOOC = FindObjectOfType<OkOrCancel>();
-        theEquip = FindObjectOfType<Equipment>();
+    }
+    public void ShowTxT()
+    {
+        if (added_atk == 0)
+            texts[ATK].text = thePlayerStat.ToString();
+        else
+        {
+            texts[ATK].text = thePlayerStat.atk.ToString() + "(" + added_atk + ")";
+        }
+        texts[ATK].text = thePlayerStat.atk.ToString();
+
+        if (added_def == 0)
+            texts[DEF].text = thePlayerStat.ToString();
+        else
+        {
+            texts[DEF].text = thePlayerStat.def.ToString() + "(" + added_def + ")";
+        }
+        texts[DEF].text = thePlayerStat.def.ToString();
+
+        if (added_hpr == 0)
+            texts[HPR].text = thePlayerStat.ToString();
+        else
+        {
+            texts[HPR].text = thePlayerStat.recover_hp.ToString() + "(" + added_hpr + ")";
+        }
+        texts[HPR].text = thePlayerStat.recover_hp.ToString();
+
+        if (added_mpr == 0)
+            texts[MPR].text = thePlayerStat.ToString();
+        else
+        {
+            texts[MPR].text = thePlayerStat.recover_mp.ToString() + "(" + added_mpr + ")";
+        }
+        texts[MPR].text = thePlayerStat.recover_mp.ToString();
     }
 
     public void EquipItem(Item _item)
@@ -76,6 +113,10 @@ public class Equipment : MonoBehaviour
             theInven.EquipToInventory(equipItemList[_count]);
             equipItemList[_count] = _item;
         }
+
+        EquipEffect(_item);
+        theAudio.Play(equip_sound);
+        ShowTxT();
     }
 
     public void ClearEquip()
@@ -119,6 +160,8 @@ public class Equipment : MonoBehaviour
         if (theOOC.GetResult())
         {
             theInven.EquipToInventory(equipItemList[selectedSlot]);
+            TakeOffEffect(equipItemList[selectedSlot]);
+            ShowTxT();
             equipItemList[selectedSlot] = new Item(0, "", "", Item.ItemType.Equip);
             theAudio.Play(takeoff_sound);
             ClearEquip();
@@ -128,6 +171,30 @@ public class Equipment : MonoBehaviour
         go_OOC.SetActive(false);
     }
 
+    private void EquipEffect(Item _item)
+    {
+        thePlayerStat.atk += _item.atk;
+        thePlayerStat.def += _item.def;
+        thePlayerStat.recover_hp += _item.recover_hp;
+        thePlayerStat.recover_mp += _item.recover_mp;
+
+        added_atk += _item.atk;
+        added_def += _item.def;
+        added_hpr += _item.recover_hp;
+        added_mpr += _item.recover_mp;
+    }
+    private void TakeOffEffect(Item _item)
+    {
+        thePlayerStat.atk -= _item.atk;
+        thePlayerStat.def -= _item.def;
+        thePlayerStat.recover_hp -= _item.recover_hp;
+        thePlayerStat.recover_mp -= _item.recover_mp;
+
+        added_atk -= _item.atk;
+        added_def -= _item.def;
+        added_hpr -= _item.recover_hp;
+        added_mpr -= _item.recover_mp;
+    }
     void Update()
     {
         if (inputKey) 
@@ -145,6 +212,7 @@ public class Equipment : MonoBehaviour
                     SelectedSlot();
                     ClearEquip();
                     ShowEquip();
+                    ShowTxT();
                 }
                 else
                 {
