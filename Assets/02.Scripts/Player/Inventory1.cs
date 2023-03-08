@@ -10,6 +10,7 @@ public class Inventory1 : MonoBehaviour
     private AudioManager theAudio;
     private OrderManager theOrder;
     private OkOrCancel theOOC;
+    private Equipment theEquip;
 
     public string key_sound;
     public string enter_sound;
@@ -51,10 +52,16 @@ public class Inventory1 : MonoBehaviour
         theOrder = FindObjectOfType<OrderManager>();
         theDatabase = FindObjectOfType<DatabaseManager>();
         theOOC = FindObjectOfType<OkOrCancel>();
+        theEquip = FindObjectOfType<Equipment>();
 
         inventoryItemList = new List<Item>();
         inventoryTabList = new List<Item>();
         slots = tf.GetComponentsInChildren<InventorySlot>();
+    }
+
+    public void EquipToInventory(Item _item)
+    {
+        inventoryItemList.Add(_item);
     }
 
     public void GetAnItem(int _itemID, int _count = 1)
@@ -336,13 +343,11 @@ public class Inventory1 : MonoBehaviour
                         {
                             if (selectedTab == 0) // 소모품
                             {
-                                theAudio.Play(enter_sound);
-                                stopKeyInput = true;
-                                StartCoroutine(OkOrCancelCoroutine());
+                                StartCoroutine(OkOrCancelCoroutine("사용", "취소"));
                             }
                             else if (selectedTab == 1)
                             {
-                                // 장비 장착
+                                StartCoroutine(OkOrCancelCoroutine("장착", "취소"));
                             }
                             else
                             {
@@ -365,10 +370,13 @@ public class Inventory1 : MonoBehaviour
         }
     }
 
-    IEnumerator OkOrCancelCoroutine()
+    IEnumerator OkOrCancelCoroutine(string _up, string _down)
     {
+        theAudio.Play(enter_sound);
+        stopKeyInput = true;
+
         go_OOC.SetActive(true);
-        theOOC.ShowTwoChoice("사용", "취소");
+        theOOC.ShowTwoChoice(_up, _down);
         yield return new WaitUntil(() => !theOOC.activated);
 
         if(theOOC.GetResult())
@@ -377,18 +385,28 @@ public class Inventory1 : MonoBehaviour
             {
                 if (inventoryItemList[i].itemID == inventoryTabList[selectedItem].itemID)
                 {
-                    theDatabase.UseItem(inventoryItemList[i].itemID);
-
-                    if (inventoryItemList[i].itemCount > 1)
+                    if (selectedTab == 0) // 소모품을 사용했을 경우
                     {
-                        inventoryItemList[i].itemCount--;
-                    }
-                    else
-                        inventoryItemList.RemoveAt(i);
+                        theDatabase.UseItem(inventoryItemList[i].itemID);
 
-                    theAudio.Play(item_sound); //아이템 먹는소리
-                    ShowItem();
-                    break;
+                        if (inventoryItemList[i].itemCount > 1)
+                        {
+                            inventoryItemList[i].itemCount--;
+                        }
+                        else
+                            inventoryItemList.RemoveAt(i);
+
+                        theAudio.Play(item_sound); //아이템 먹는 소리
+                        ShowItem();
+                        break;
+                    }
+                    else if (selectedTab == 1) // 장비 아이템을 사용했을 경우
+                    {
+                        theEquip.EquipItem(inventoryItemList[i]);
+                        inventoryItemList.RemoveAt(i);
+                        ShowItem();
+                        break;
+                    }
                 }
             }
         }
