@@ -29,10 +29,14 @@ public class PlayerStat : MonoBehaviour
 
     public GameObject prefabs_Floating_Text;
     public GameObject parent;
+
+    public Slider hpSlider;
+    public Slider mpSlider;
     void Start()
     {
         instance = this;
         currentHP = hp;
+        currentMP = 10;
         current_time = time;
     }
     public void Hit(int _enemyAtk)
@@ -86,6 +90,12 @@ public class PlayerStat : MonoBehaviour
 
     void Update()
     {
+        hpSlider.maxValue = hp;
+        mpSlider.maxValue = mp;
+
+        hpSlider.value = currentHP;
+        mpSlider.value = currentMP;
+
         if (currentEXP >= needExp[character_Lv])    // 현재 경험치가 레벨업시 필요경험치 이상이면
         {
             character_Lv++;
