@@ -14,8 +14,9 @@ public class SlimeController : MovingObject1
     private Vector2 playerPos; // 플레이어의 좌표값
 
     private int random_int; // 랜덤으로 움직이기 위한 변수값
-    private string direction; 
+    private string direction;
 
+    public GameObject healthBar;
     void Start()
     {
         queue = new Queue<string>();
@@ -31,6 +32,9 @@ public class SlimeController : MovingObject1
             flip.x = 1f;
 
         this.transform.localScale = flip;
+
+        healthBar.transform.localScale = flip;
+
         animator.SetTrigger("Attack");
         StartCoroutine(WaitCoroutine());
     }
