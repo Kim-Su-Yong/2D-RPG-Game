@@ -36,10 +36,10 @@ public class Title : MonoBehaviour
         color.a = 1f;
         thePlayer.GetComponent<SpriteRenderer>().color = color;
         thePlayer.currentMapName = "forest";
-        thePlayer.currentSceneName = "start";
+        thePlayer.currentSceneName = "2D RPG";
 
         theGM.LoadStart();
-        SceneManager.LoadScene("start");
+        SceneManager.LoadScene("2D RPG");
     }
 
     public void ExitGame()

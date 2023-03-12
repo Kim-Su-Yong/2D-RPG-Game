@@ -130,6 +130,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4470282828722588988, guid: 53924c8149f3e0149b5086d46aa81f33, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1944125519}
+    - target: {fileID: 4470282828722588988, guid: 53924c8149f3e0149b5086d46aa81f33, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CallSave
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470282828722588988, guid: 53924c8149f3e0149b5086d46aa81f33, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SaveNLoad, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470282828722588988, guid: 53924c8149f3e0149b5086d46aa81f33, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4470282829165910774, guid: 53924c8149f3e0149b5086d46aa81f33, type: 3}
       propertyPath: theAudio
       value: 
@@ -1341,6 +1357,46 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7605716246694789260, guid: fc11a425a51ae1a448956fc3c6e3c5dd, type: 3}
   m_PrefabInstance: {fileID: 1944125516}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1944125519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944125518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f3ea42f55da57648bc8e138c2262f06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    playerX: 0
+    playerY: 0
+    playerZ: 0
+    playerLv: 0
+    playerHP: 0
+    playerMP: 0
+    playerCurrentHP: 0
+    playerCurrentMP: 0
+    playerCurrentEXP: 0
+    playerHPR: 0
+    playerMPR: 0
+    playerATK: 0
+    playerDEF: 0
+    added_atk: 0
+    added_def: 0
+    added_hpr: 0
+    added_mpr: 0
+    playerMoney: 0
+    playerItemInventory: 
+    playerItemInventoryCount: 
+    playerEquipItem: 
+    mapName: 
+    sceneName: 
+    swList: 
+    swNameList: []
+    varNameList: []
+    varNumberList: []
 --- !u!1 &1985665692 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1737270528361681010, guid: d99f0d33467380f4da0c3c8a8ea00ff0, type: 3}
@@ -1428,13 +1484,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1944125518}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1944125519}
+        m_TargetAssemblyTypeName: SaveNLoad, Assembly-CSharp
+        m_MethodName: CallLoad
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
