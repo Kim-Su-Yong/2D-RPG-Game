@@ -6,7 +6,7 @@ public class OrderManager : MonoBehaviour
 {
     //public string characterName;
     private PlayerManager thePlayer; // 이벤트 도중에 키 입력 처리 방지
-    private List<MovingObject1> characters;
+    private List<MovingObject> characters;
 
     // NPC A 마을 10마리
     // NPC B 마을 20마리
@@ -22,10 +22,10 @@ public class OrderManager : MonoBehaviour
         characters = ToList();
     }
 
-    public List<MovingObject1> ToList()
+    public List<MovingObject> ToList()
     {
-        List<MovingObject1> tempList = new List<MovingObject1>();
-        MovingObject1[] temp = FindObjectsOfType<MovingObject1>();
+        List<MovingObject> tempList = new List<MovingObject>();
+        MovingObject[] temp = FindObjectsOfType<MovingObject>();
 
         for (int i=0; i<temp.Length; i++)
         {

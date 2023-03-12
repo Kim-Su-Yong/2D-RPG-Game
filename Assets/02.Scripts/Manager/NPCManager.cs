@@ -15,7 +15,7 @@ public class NPCMove
 
 }
 
-public class NPCManager : MovingObject1
+public class NPCManager : MovingObject
 {
     [SerializeField]
     public NPCMove npc;

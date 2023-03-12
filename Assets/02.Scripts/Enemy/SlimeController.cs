@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeController : MovingObject1
+public class SlimeController : MovingObject
 {
     public float attackDelay; // 공격 유예 시간
 

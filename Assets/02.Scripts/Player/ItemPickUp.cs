@@ -13,7 +13,7 @@ public class ItemPickUp : MonoBehaviour
         if(Input.GetKey(KeyCode.Z))
         {
             AudioManager.instance.Play(pickUpSound);
-            Inventory1.instance.GetAnItem(itemID, _count);
+            Inventory.instance.GetAnItem(itemID, _count);
             Destroy(this.gameObject);
         }
     }

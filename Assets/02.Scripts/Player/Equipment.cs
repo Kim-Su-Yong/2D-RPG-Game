@@ -8,7 +8,7 @@ public class Equipment : MonoBehaviour
     private OrderManager theOrder;
     private AudioManager theAudio;
     private PlayerStat thePlayerStat;
-    private Inventory1 theInven;
+    private Inventory theInven;
     private OkOrCancel theOOC;
 
     public string key_sound;
@@ -41,7 +41,7 @@ public class Equipment : MonoBehaviour
 
     void Start()
     {
-        theInven = FindObjectOfType<Inventory1>();
+        theInven = FindObjectOfType<Inventory>();
         theOrder = FindObjectOfType<OrderManager>();
         theAudio = FindObjectOfType<AudioManager>();
         thePlayerStat = FindObjectOfType<PlayerStat>();
