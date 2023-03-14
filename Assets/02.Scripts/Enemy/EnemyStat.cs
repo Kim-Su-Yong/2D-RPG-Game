@@ -33,20 +33,24 @@ public class EnemyStat : MonoBehaviour
 
         currentHp -= dmg;
 
-        if(currentHp <= 0)
+        if (currentHp <= 0)
         {
             Debug.Log("óġ");
             currentHp = hp;
             healthBarFilled.fillAmount = 1f;
             gameObject.SetActive(false);
             PlayerStat.instance.currentEXP += exp;
+            healthBarBackground.SetActive(false);
         }
 
-        healthBarFilled.fillAmount = (float)currentHp / hp;
-        healthBarBackground.SetActive(true);
-        //StopAllCoroutines();
-        //StartCoroutine(WaitCoroutine());
-        return dmg;
+        else
+        {
+            healthBarFilled.fillAmount = (float)currentHp / hp;
+            healthBarBackground.SetActive(true);
+            StopAllCoroutines();
+            StartCoroutine(WaitCoroutine());
+        }
+        return dmg;     
     }
 
     IEnumerator WaitCoroutine()

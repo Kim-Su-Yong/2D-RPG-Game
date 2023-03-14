@@ -6,10 +6,8 @@ public class EnemyPooling : MonoBehaviour
 {
     public GameObject EnemyPrefab;
     public List<GameObject> EnemyPool = new List<GameObject>(); //오브젝트 풀링
-    int maxCount = 3; //최대 소환 개수
     public Transform[] SpawnPoints; //적 소환 위치
-    public GameObject _Enemy;
-    public float timer = 0;
+    public float timer = 0; //몹 리젠 시간
 
     public EnemyStat theStat;
     void Awake()
@@ -25,7 +23,7 @@ public class EnemyPooling : MonoBehaviour
     {
         for (int i = 0; i < EnemyPool.Count; i++)
         {
-            if (EnemyPool[i].activeSelf == false)
+            if (EnemyPool[i].activeSelf == false) //적이 죽었을때
             {
                 timer += Time.deltaTime;
                 if(timer > 3)
@@ -40,24 +38,11 @@ public class EnemyPooling : MonoBehaviour
     #region 적 몬스터 오브젝트 풀링
     void CreateEnemyPool()   //오브젝트 풀링용 오브젝트 생성
     {
-        for (int i = 0; i < maxCount; i++)
+        for (int idx = 1; idx < 4; idx++)
         {
-            int idx = Random.Range(1, 4);
-            _Enemy = Instantiate(EnemyPrefab, SpawnPoints[idx].transform);
-            _Enemy.name = "Enemy" + i.ToString("0");
+            GameObject _Enemy = Instantiate(EnemyPrefab, SpawnPoints[idx].transform);
             EnemyPool.Add(_Enemy);
         }
-    }
-    public GameObject GetEnemy() //오브젝트 풀링된 적 정보를 가져오는 함수
-    {
-        for (int i = 0; i < EnemyPool.Count; i++)
-        {
-            if (EnemyPool[i].activeSelf == false)
-            {
-                return EnemyPool[i];
-            }
-        }
-        return null;
     }
     #endregion
 }
