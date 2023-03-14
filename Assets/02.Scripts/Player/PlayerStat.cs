@@ -32,6 +32,12 @@ public class PlayerStat : MonoBehaviour
 
     public Slider hpSlider;
     public Slider mpSlider;
+    public Image EXPImage;
+
+    public Text HpTxt;
+    public Text MpTxt;
+    public Text EXPTxt;
+    public Text ChaLv;
     void Start()
     {
         instance = this;
@@ -93,11 +99,24 @@ public class PlayerStat : MonoBehaviour
         hpSlider.maxValue = hp;
         mpSlider.maxValue = mp;
 
+        HpTxt.text = "(" + currentHP + "/" + hp + ")";
+        MpTxt.text = "(" + currentMP + "/" + mp + ")";
+        EXPTxt.text = "(" + currentEXP + "/" + needExp[character_Lv] + ")";
+        ChaLv.text = character_Lv.ToString();
+
         hpSlider.value = currentHP;
         mpSlider.value = currentMP;
+        EXPImage.fillAmount = (float)currentEXP / needExp[character_Lv];
 
         if (currentEXP >= needExp[character_Lv])    // 현재 경험치가 레벨업시 필요경험치 이상이면
         {
+            Vector3 vector = transform.position;
+            vector.y += 60;
+
+            var clone = Instantiate(prefabs_Floating_Text, vector, Quaternion.Euler(Vector3.zero));
+            clone.GetComponent<FloatingText>().text.text = "Level Up";
+            clone.transform.SetParent(parent.transform);
+
             character_Lv++;
             hp += character_Lv * 2;
             hp += character_Lv + 2;

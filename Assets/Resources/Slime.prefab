@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 3217354333952641841}
   - component: {fileID: 3217354333952641840}
   - component: {fileID: 3217354333952641845}
+  - component: {fileID: 7895349873147976579}
   m_Layer: 6
   m_Name: Slime
   m_TagString: Enemy
@@ -426,3 +427,24 @@ MonoBehaviour:
   exp: 10
   healthBarBackground: {fileID: 3217354332839988847}
   healthBarFilled: {fileID: 3217354332336993104}
+--- !u!50 &7895349873147976579
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3217354333952641843}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

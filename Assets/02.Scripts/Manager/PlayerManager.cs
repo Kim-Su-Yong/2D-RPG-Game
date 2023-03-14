@@ -9,7 +9,6 @@ public class PlayerManager : MovingObject
     public string currentMapName; // transferMap 스크립트에 있는 transferMapName 변수의 값을 저장
     public string currentSceneName;
 
-
     public string walkSound_1;
     public string walkSound_2;
     public string walkSound_3;

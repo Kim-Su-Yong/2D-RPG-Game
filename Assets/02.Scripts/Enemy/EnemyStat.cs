@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class EnemyStat : MonoBehaviour
 {
+    public EnemyPooling theEnemy;
+    public static EnemyStat instance; 
+
     public int hp;
     public int currentHp;
     public int atk;
@@ -13,11 +16,11 @@ public class EnemyStat : MonoBehaviour
 
     public GameObject healthBarBackground;
     public Image healthBarFilled;
-
     void Start()
     {
         currentHp = hp;
         healthBarFilled.fillAmount = 1f;
+        theEnemy = FindObjectOfType<EnemyPooling>();
     }
     public int Hit(int _playerAtk)
     {
@@ -32,14 +35,17 @@ public class EnemyStat : MonoBehaviour
 
         if(currentHp <= 0)
         {
-            Destroy(this.gameObject);
+            Debug.Log("óġ");
+            currentHp = hp;
+            healthBarFilled.fillAmount = 1f;
+            gameObject.SetActive(false);
             PlayerStat.instance.currentEXP += exp;
         }
 
         healthBarFilled.fillAmount = (float)currentHp / hp;
         healthBarBackground.SetActive(true);
-        StopAllCoroutines();
-        StartCoroutine(WaitCoroutine());
+        //StopAllCoroutines();
+        //StartCoroutine(WaitCoroutine());
         return dmg;
     }
 

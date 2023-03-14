@@ -7,11 +7,23 @@ public class OrderManager : MonoBehaviour
     //public string characterName;
     private PlayerManager thePlayer; // 이벤트 도중에 키 입력 처리 방지
     private List<MovingObject> characters;
+    private static OrderManager instance;
 
     // NPC A 마을 10마리
     // NPC B 마을 20마리
     // Add(), Remove(), Clear()
-
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(this.gameObject);
+            instance = this;
+        }
+    }
     void Start()
     {
         thePlayer = FindObjectOfType<PlayerManager>();

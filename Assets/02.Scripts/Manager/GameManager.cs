@@ -12,8 +12,7 @@ public class GameManager : MonoBehaviour
     private DialogueManager theDialogue;
     private Camera theCam;
 
-    public GameObject HpBar;
-    public GameObject MpBar;
+    public GameObject charc;
     public void LoadStart()
     {
         StartCoroutine(LoadWaitCoroutine());
@@ -46,8 +45,7 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
-        HpBar.SetActive(true);
-        MpBar.SetActive(false);
+        charc.SetActive(true);
 
         theFade.FadeIn();
     }

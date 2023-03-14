@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 7605716246694789268}
   - component: {fileID: 7605716246694789271}
   - component: {fileID: 2619752466818361756}
+  - component: {fileID: 1944125519}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -326,6 +327,10 @@ MonoBehaviour:
   parent: {fileID: 0}
   hpSlider: {fileID: 0}
   mpSlider: {fileID: 0}
+  HpTxt: {fileID: 0}
+  MpTxt: {fileID: 0}
+  EXPTxt: {fileID: 0}
+  ChaLv: {fileID: 0}
 --- !u!114 &2619752466818361756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,6 +345,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBar: {fileID: 0}
   MpBar: {fileID: 0}
+  EXPBar: {fileID: 0}
+--- !u!114 &1944125519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7605716246694789260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f3ea42f55da57648bc8e138c2262f06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    playerX: 0
+    playerY: 0
+    playerZ: 0
+    playerLv: 0
+    playerHP: 0
+    playerMP: 0
+    playerCurrentHP: 0
+    playerCurrentMP: 0
+    playerCurrentEXP: 0
+    playerHPR: 0
+    playerMPR: 0
+    playerATK: 0
+    playerDEF: 0
+    added_atk: 0
+    added_def: 0
+    added_hpr: 0
+    added_mpr: 0
+    playerMoney: 0
+    playerItemInventory: 
+    playerItemInventoryCount: 
+    playerEquipItem: 
+    mapName: 
+    sceneName: 
+    swList: 
+    swNameList: []
+    varNameList: []
+    varNumberList: []
 --- !u!1 &7605716247088134883
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,9 +12,6 @@ public class Title : MonoBehaviour
 
     private PlayerManager thePlayer;
     private GameManager theGM;
-
-    public GameObject StartPress;
-    public Image Btn;
     void Start()
     {
         theFade = FindObjectOfType<FadeManager>();
