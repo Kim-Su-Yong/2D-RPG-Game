@@ -16,11 +16,19 @@ public class EnemyStat : MonoBehaviour
 
     public GameObject healthBarBackground;
     public Image healthBarFilled;
+
+    public bool isDie = false;
+
+    public GameObject[] items; //죽으면 떨어질 아이템
+    private Transform tr;
+    public bool isItem;
     void Start()
     {
         currentHp = hp;
         healthBarFilled.fillAmount = 1f;
         theEnemy = FindObjectOfType<EnemyPooling>();
+        items = Resources.LoadAll<GameObject>("Items");
+        tr = GetComponent<Transform>();
     }
     public int Hit(int _playerAtk)
     {
@@ -35,16 +43,21 @@ public class EnemyStat : MonoBehaviour
 
         if (currentHp <= 0)
         {
-            Debug.Log("óġ");
+            if(!isItem)
+                itemdrop();
+
             currentHp = hp;
             healthBarFilled.fillAmount = 1f;
             gameObject.SetActive(false);
             PlayerStat.instance.currentEXP += exp;
             healthBarBackground.SetActive(false);
+            isDie = true;
         }
 
         else
         {
+            isDie = false;
+            isItem = false;
             healthBarFilled.fillAmount = (float)currentHp / hp;
             healthBarBackground.SetActive(true);
             StopAllCoroutines();
@@ -57,5 +70,11 @@ public class EnemyStat : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         healthBarBackground.SetActive(false);
+    }
+    void itemdrop() //아이템 드랍 함수
+    {
+        GameObject Itemdrop = Instantiate(items[Random.Range(0, items.Length)], new Vector3(tr.position.x + 40f, tr.position.y, 0), Quaternion.identity);
+        //적 처치시 랜덤 아이템 생성
+        isItem = true;
     }
 }

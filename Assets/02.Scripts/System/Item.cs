@@ -37,12 +37,4 @@ public class Item
         recover_hp = _recover_hp;
         recover_mp = _recover_mp;
     }
-    void Start()
-    {
-        
-    }
-    void Update()
-    {
-        
-    }
 }

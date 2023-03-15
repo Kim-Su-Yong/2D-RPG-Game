@@ -5,11 +5,9 @@ using UnityEngine;
 public class EnemyPooling : MonoBehaviour
 {
     public GameObject EnemyPrefab;
-    public List<GameObject> EnemyPool = new List<GameObject>(); //오브젝트 풀링
+    List<GameObject> EnemyPool = new List<GameObject>(); //오브젝트 풀링
     public Transform[] SpawnPoints; //적 소환 위치
     public float timer = 0; //몹 리젠 시간
-
-    public EnemyStat theStat;
     void Awake()
     {
         EnemyPrefab = Resources.Load("Slime") as GameObject;
@@ -28,7 +26,6 @@ public class EnemyPooling : MonoBehaviour
                 timer += Time.deltaTime;
                 if(timer > 3)
                 {
-                    Debug.Log("리스폰");
                     EnemyPool[i].SetActive(true);
                     timer = 0;
                 }

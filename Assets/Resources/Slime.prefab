@@ -420,6 +420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d157c57c9e8e76469ab2634ffb03714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  theEnemy: {fileID: 0}
   hp: 15
   currentHp: 0
   atk: 5
@@ -427,6 +428,9 @@ MonoBehaviour:
   exp: 10
   healthBarBackground: {fileID: 3217354332839988847}
   healthBarFilled: {fileID: 3217354332336993104}
+  isDie: 0
+  items: []
+  isItem: 0
 --- !u!50 &7895349873147976579
 Rigidbody2D:
   serializedVersion: 4
