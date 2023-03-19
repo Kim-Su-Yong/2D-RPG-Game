@@ -158,7 +158,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (talking && keyActivated)
         {
-            if (Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 keyActivated = false;
                 count++;

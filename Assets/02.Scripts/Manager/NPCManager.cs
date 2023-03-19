@@ -17,19 +17,31 @@ public class NPCMove
 
 public class NPCManager : MovingObject
 {
-    [SerializeField]
     public NPCMove npc;
+    private OrderManager theOrder;
+    private DialogueManager theDM;
+
+    public string[] texts;
+    public GameObject theShop;
+    private bool isShop; 
     void Start()
     {
+        theOrder = FindObjectOfType<OrderManager>();
+        theDM = FindObjectOfType<DialogueManager>();
         queue = new Queue<string>();
         StartCoroutine(MoveCoroutine());
     }
-
-    public void SetMove()
+    void Update()
     {
-        //StartCoroutine(MoveCoroutine());
+        if(isShop)
+        {
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                theShop.SetActive(false);
+                isShop = false;
+            }
+        }
     }
-
     public void SetNotMove()
     {
         StopAllCoroutines();
@@ -49,5 +61,21 @@ public class NPCManager : MovingObject
                     i = -1;
             }
         }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            StartCoroutine(ACoroutine());
+        }
+    }
+    IEnumerator ACoroutine()
+    {
+        theOrder.NotMove();
+        theDM.ShowText(texts);
+
+        yield return new WaitUntil(() => !theDM.talking);
+        theShop.SetActive(true);
+        isShop = true;
     }
 }

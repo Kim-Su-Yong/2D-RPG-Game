@@ -21,8 +21,8 @@ public class Inventory : MonoBehaviour
 
     private InventorySlot[] slots; // 인벤토리 슬롯들
 
-    private List<Item> inventoryItemList; // 플레이어가 소지한 아이템 리스트
-    private List<Item> inventoryTabList; // 선택한 탭에 따라 다르게 보여질 아이템 리스트
+    public List<Item> inventoryItemList; // 플레이어가 소지한 아이템 리스트
+    public List<Item> inventoryTabList; // 선택한 탭에 따라 다르게 보여질 아이템 리스트
 
     public Text Description_Text; // 부연 설명
     public string[] tabDescription; // 탭 부연 설명
@@ -445,36 +445,52 @@ public class Inventory : MonoBehaviour
 
         if(theOOC.GetResult())
         {
+            RemoveItem();
+        }
+        else
+        {
             for (int i = 0; i < inventoryItemList.Count; i++)
             {
                 if (inventoryItemList[i].itemID == inventoryTabList[selectedItem].itemID)
                 {
-                    if (selectedTab == 0) // 소모품을 사용했을 경우
-                    {
-                        theDatabase.UseItem(inventoryItemList[i].itemID);
-
-                        if (inventoryItemList[i].itemCount > 1)
-                        {
-                            inventoryItemList[i].itemCount--;
-                        }
-                        else
-                            inventoryItemList.RemoveAt(i);
-
-                        theAudio.Play(item_sound); //아이템 먹는 소리
-                        ShowItem();
-                        break;
-                    }
-                    else if (selectedTab == 1) // 장비 아이템을 사용했을 경우
-                    {
-                        theEquip.EquipItem(inventoryItemList[i]);
-                        inventoryItemList.RemoveAt(i);
-                        ShowItem();
-                        break;
-                    }
+                    inventoryItemList.RemoveAt(i);
+                    ShowItem();
+                    break;
                 }
             }
         }
         stopKeyInput = false;
         go_OOC.SetActive(false);
+    }
+    public void RemoveItem()
+    {
+        for (int i = 0; i < inventoryItemList.Count; i++)
+        {
+            if (inventoryItemList[i].itemID == inventoryTabList[selectedItem].itemID)
+            {
+                if (selectedTab == 0) // 소모품을 사용했을 경우
+                {
+                    theDatabase.UseItem(inventoryItemList[i].itemID);
+
+                    if (inventoryItemList[i].itemCount > 1)
+                    {
+                        inventoryItemList[i].itemCount--;
+                    }
+                    else
+                        inventoryItemList.RemoveAt(i);
+
+                    theAudio.Play(item_sound); //아이템 먹는 소리
+                    ShowItem();
+                    break;
+                }
+                else if (selectedTab == 1) // 장비 아이템을 사용했을 경우
+                {
+                    theEquip.EquipItem(inventoryItemList[i]);
+                    inventoryItemList.RemoveAt(i);
+                    ShowItem();
+                    break;
+                }
+            }
+        }
     }
 }

@@ -19,14 +19,11 @@ public class Menu : MonoBehaviour
     }
     public GameObject go;
     public AudioManager theAudio;
+    public OrderManager theOrder;
 
     public string call_sound;
     public string cancel_sound;
-
-    public OrderManager theOrder;
-
     public GameObject[] gos;
-
     private bool activated;
 
     public void Exit()

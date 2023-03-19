@@ -600,6 +600,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5586772666156983721, guid: 44af146a7d4d90b4fa03df7d1e68361a, type: 3}
   m_PrefabInstance: {fileID: 4251171251583888975}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &786665792 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5602417572403797253, guid: 9b8924995c2f7654dab7b094fa323da0, type: 3}
+  m_PrefabInstance: {fileID: 2054485635}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &840016568 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5586772666156983721, guid: 44af146a7d4d90b4fa03df7d1e68361a, type: 3}
@@ -834,11 +839,6 @@ RectTransform:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5586772666156983721, guid: 44af146a7d4d90b4fa03df7d1e68361a, type: 3}
   m_PrefabInstance: {fileID: 1737270529088396230}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1428581596 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5602417572403797253, guid: 9b8924995c2f7654dab7b094fa323da0, type: 3}
-  m_PrefabInstance: {fileID: 2054485635}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &1434154935 stripped
 RectTransform:
@@ -1524,6 +1524,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7605716246694789263, guid: fc11a425a51ae1a448956fc3c6e3c5dd, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7605716246694789264, guid: fc11a425a51ae1a448956fc3c6e3c5dd, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7605716246694789271, guid: fc11a425a51ae1a448956fc3c6e3c5dd, type: 3}
       propertyPath: ChaLv
       value: 
@@ -1556,6 +1564,14 @@ PrefabInstance:
       propertyPath: mpSlider
       value: 
       objectReference: {fileID: 1737270527430038924}
+    - target: {fileID: 7605716247088134883, guid: fc11a425a51ae1a448956fc3c6e3c5dd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7605716247276665640, guid: fc11a425a51ae1a448956fc3c6e3c5dd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7605716247276665645, guid: fc11a425a51ae1a448956fc3c6e3c5dd, type: 3}
       propertyPath: parent
       value: 
@@ -2777,7 +2793,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -373, y: -133}
+  m_AnchoredPosition: {x: -373, y: -136}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1737270527124349733
@@ -3006,7 +3022,7 @@ GameObject:
   - component: {fileID: 1737270527179440221}
   - component: {fileID: 1737270527179440223}
   - component: {fileID: 1737270527179440220}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Dialogue Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3085,7 +3101,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1127176365
   m_SortingLayer: 5
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: c3644e3825957f4408b5a3f1a5919254, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4475,7 +4491,7 @@ RectTransform:
   - {fileID: 1737270527004147294}
   - {fileID: 1737270527560017492}
   - {fileID: 1737270528388058481}
-  - {fileID: 1428581596}
+  - {fileID: 786665792}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5925,6 +5941,8 @@ MonoBehaviour:
   open_sound: ok
   beep_sound: beep
   item_sound: item_pickup
+  inventoryItemList: []
+  inventoryTabList: []
   Description_Text: {fileID: 1737270527272946277}
   tabDescription:
   - "\uC18C\uBAA8\uD488 : \uC18C\uBAA8\uB418\uB294 \uC544\uC774\uD15C \uB9AC\uC2A4\uD2B8\uB97C
@@ -6356,7 +6374,7 @@ GameObject:
   - component: {fileID: 1737270527835446590}
   - component: {fileID: 1737270527835446591}
   m_Layer: 5
-  m_Name: Cancel_Panel
+  m_Name: Sell_Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14404,7 +14422,7 @@ GameObject:
   - component: {fileID: 1737270528577002989}
   - component: {fileID: 1737270528577002770}
   m_Layer: 5
-  m_Name: Cancel_Text
+  m_Name: Sell_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14443,7 +14461,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uCDE8\uC18C"
+  m_Text: "\uD310\uB9E4"
 --- !u!224 &1737270528577002771
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14582,7 +14600,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1737270528618286189
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14590,7 +14608,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1737270528618285970}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -14602,7 +14620,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 2, y: 18}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1737270528648891636
@@ -15642,7 +15660,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1737270529094499965}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 380, y: -2, z: -136.4757}
+  m_LocalPosition: {x: 83, y: -2, z: -136.4757}
   m_LocalScale: {x: 0.83401805, y: 0.83401805, z: 0.83401805}
   m_Children: []
   m_Father: {fileID: 1737270528618286189}
@@ -15659,7 +15677,7 @@ GameObject:
   - component: {fileID: 1737270529094499964}
   - component: {fileID: 1737270529094499966}
   - component: {fileID: 1737270529094499967}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15705,7 +15723,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1127176365
   m_SortingLayer: 5
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: e8cc1233614ffaf438331a9afb15362e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
