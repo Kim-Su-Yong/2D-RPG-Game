@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 7605716246694789266}
   - component: {fileID: 7605716246694789269}
   - component: {fileID: 7605716246694789265}
-  - component: {fileID: 7605716246694789268}
   - component: {fileID: 7605716246694789271}
   - component: {fileID: 2619752466818361756}
   - component: {fileID: 1944125519}
@@ -284,20 +283,6 @@ MonoBehaviour:
   runSpeed: 2.4
   notMove: 0
   attackDelay: 1
---- !u!114 &7605716246694789268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7605716246694789260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03b5ff673f20a134fa991fe3ee86a2e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  go: {fileID: 0}
-  IsLight: 0
 --- !u!114 &7605716246694789271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,10 +312,12 @@ MonoBehaviour:
   parent: {fileID: 0}
   hpSlider: {fileID: 0}
   mpSlider: {fileID: 0}
+  EXPImage: {fileID: 0}
   HpTxt: {fileID: 0}
   MpTxt: {fileID: 0}
   EXPTxt: {fileID: 0}
   ChaLv: {fileID: 0}
+  theQuest: {fileID: 0}
 --- !u!114 &2619752466818361756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,9 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2b6ec4fb9bda31438c608e15366ef16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HpBar: {fileID: 0}
-  MpBar: {fileID: 0}
-  EXPBar: {fileID: 0}
+  charc: {fileID: 0}
 --- !u!114 &1944125519
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,15 +10,6 @@ public class Shop : MonoBehaviour
     int SlotNum;
     int ShopItemID;
     public Button[] btn;
-    public bool isShop;
-    void Update()
-    {
-        if (this.gameObject.activeSelf == false)
-            isShop = false;
-        
-        else
-            isShop = true;
-    }
     public void Buy()
     {
         if(isClick)

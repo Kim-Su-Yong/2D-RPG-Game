@@ -18,6 +18,7 @@ public class PlayerStat : MonoBehaviour
 
     public int atk;             // 공격력
     public int def;             // 방어력
+    public int money;           // 소지금
 
     public int recover_hp;
     public int recover_mp;
@@ -38,12 +39,17 @@ public class PlayerStat : MonoBehaviour
     public Text MpTxt;
     public Text EXPTxt;
     public Text ChaLv;
+    public Text MoneyTxt;
+
+    public Quest theQuest;
     void Start()
     {
         instance = this;
         currentHP = hp;
         currentMP = 10;
+        money = 500;
         current_time = time;
+        theQuest = FindObjectOfType<Quest>();
     }
     public void Hit(int _enemyAtk)
     {
@@ -103,6 +109,7 @@ public class PlayerStat : MonoBehaviour
         MpTxt.text = "(" + currentMP + "/" + mp + ")";
         EXPTxt.text = "(" + currentEXP + "/" + needExp[character_Lv] + ")";
         ChaLv.text = character_Lv.ToString();
+        MoneyTxt.text = money.ToString();
 
         hpSlider.value = currentHP;
         mpSlider.value = currentMP;
@@ -125,6 +132,8 @@ public class PlayerStat : MonoBehaviour
             currentMP = mp;
             atk++;
             def++;
+            currentEXP = 0;
+            theQuest.LevelCount();
         }
 
         current_time -= Time.deltaTime;

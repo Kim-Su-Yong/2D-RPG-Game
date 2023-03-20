@@ -22,6 +22,7 @@ public class EnemyStat : MonoBehaviour
     public GameObject[] items; //죽으면 떨어질 아이템
     private Transform tr;
     public bool isItem;
+    public Quest theQuest;
     void Start()
     {
         currentHp = hp;
@@ -29,6 +30,7 @@ public class EnemyStat : MonoBehaviour
         theEnemy = FindObjectOfType<EnemyPooling>();
         items = Resources.LoadAll<GameObject>("Items");
         tr = GetComponent<Transform>();
+        theQuest = FindObjectOfType<Quest>();
     }
     public int Hit(int _playerAtk)
     {
@@ -52,6 +54,7 @@ public class EnemyStat : MonoBehaviour
             PlayerStat.instance.currentEXP += exp;
             healthBarBackground.SetActive(false);
             isDie = true;
+            theQuest.DieCount();
         }
 
         else
