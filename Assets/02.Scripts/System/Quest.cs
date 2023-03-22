@@ -8,7 +8,7 @@ public class Quest : MonoBehaviour
     public Button btn2;
     public Text questText1;
     public Text questText2;
-    private int count;
+    public int count;
     public int lvlcount;
     private bool isQuest;
     private bool Questapt1;
@@ -53,17 +53,9 @@ public class Quest : MonoBehaviour
 
         Questapt1 = true;
     }
-    public void SecondQuest()
-    {
-        btn2.interactable = false;
-        if (lvlcount == 0)
-            theStat.money += 500;
-
-        Questapt2 = true;
-    }
     public void DieCount()
     {
-        if(Questapt1)
+        if (Questapt1)
             count++;
 
         if (count == 3)
@@ -72,6 +64,15 @@ public class Quest : MonoBehaviour
             btn1.interactable = true;
         }
     }
+    public void SecondQuest()
+    {
+        btn2.interactable = false;
+        if (lvlcount == 0)
+            theStat.money += 500;
+
+        Questapt2 = true;
+    }
+    
     public void LevelCount()
     {
         lvlcount++;

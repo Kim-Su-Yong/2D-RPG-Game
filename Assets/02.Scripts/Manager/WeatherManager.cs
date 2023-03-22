@@ -27,7 +27,17 @@ public class WeatherManager : MonoBehaviour
     {
         theAudio = FindObjectOfType<AudioManager>();
     }
-
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            RainStop();
+        }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            Rain();
+        }
+    }
     public void Rain()
     {
         theAudio.Play(rain_sound);

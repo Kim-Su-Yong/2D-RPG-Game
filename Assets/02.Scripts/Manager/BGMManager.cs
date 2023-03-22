@@ -27,6 +27,17 @@ public class BGMManager : MonoBehaviour
     {
         source = GetComponent<AudioSource>();
     }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            StartCoroutine(FadeOutMusicCoroutine());
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            StartCoroutine(FadeInMusicCoroutine());
+        }
+    }
 
     public void Play(int _playMusicTrack)
     {

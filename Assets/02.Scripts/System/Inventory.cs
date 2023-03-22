@@ -407,11 +407,11 @@ public class Inventory : MonoBehaviour
                         {
                             if (selectedTab == 0) // 소모품
                             {
-                                StartCoroutine(OkOrCancelCoroutine("사용", "취소"));
+                                StartCoroutine(OkOrCancelCoroutine("사용", "판매"));
                             }
                             else if (selectedTab == 1)
                             {
-                                StartCoroutine(OkOrCancelCoroutine("장착", "취소"));
+                                StartCoroutine(OkOrCancelCoroutine("장착", "판매"));
                             }
                             else
                             {

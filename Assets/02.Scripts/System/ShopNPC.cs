@@ -16,7 +16,7 @@ public class ShopNPC : MonoBehaviour
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.F))
         {
             theShop.SetActive(false);
             theOrder.Move();
