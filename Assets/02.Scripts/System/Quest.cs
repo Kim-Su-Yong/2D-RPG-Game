@@ -48,7 +48,7 @@ public class Quest : MonoBehaviour
     public void FirstQuest()
     {
         btn1.interactable = false;
-        if (count == 3)
+        if (count >= 3)
             theStat.money += 300;
 
         Questapt1 = true;
